@@ -1,0 +1,29 @@
+{
+  "key": "cgym-<REDACTED>",
+  "spend": 0.05337090000000001,
+  "max_budget": 3.0,
+  "remaining": 2.9466291,
+  "allowed_models": [
+    "deepseek-max"
+  ],
+  "input_tokens": 1850634,
+  "output_tokens": 62261,
+  "cache_read_tokens": 1743872,
+  "cache_creation_tokens": 0,
+  "reasoning_tokens": 50655,
+  "requests": 42,
+  "total_latency": 765.2237199999998,
+  "models": {
+    "openrouter/deepseek/deepseek-v4.1-flash": {
+      "spend": 0.05337090000000001,
+      "input_tokens": 1850634,
+      "output_tokens": 62261,
+      "cache_read_tokens": 1743872,
+      "cache_creation_tokens": 0,
+      "reasoning_tokens": 50655,
+      "requests": 42,
+      "total_latency": 765.2237199999998
+    }
+  },
+  "created_at": 1791145486.3523936
+}

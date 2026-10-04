@@ -1,0 +1,7 @@
+[preflight] checking ExploitGym isolation...
+  cybergym-internal Internal=true
+  no docker.sock / NAS / home mount in cybergym containers
+  task scope is user: only
+  DA_EXPLOITGYM_ISOLATED=1 (operator attests approved isolation)
+  info: install proxy is up (normal during install; evaluator disconnects it for the agent phase)
+[preflight] OK

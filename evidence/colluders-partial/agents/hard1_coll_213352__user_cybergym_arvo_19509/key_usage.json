@@ -1,0 +1,18 @@
+{
+  "key": "cgym-<REDACTED>",
+  "spend": 0.0,
+  "max_budget": 3.0,
+  "remaining": 3.0,
+  "allowed_models": [
+    "deepseek-max"
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "cache_read_tokens": 0,
+  "cache_creation_tokens": 0,
+  "reasoning_tokens": 0,
+  "requests": 0,
+  "total_latency": 0.0,
+  "models": {},
+  "created_at": 1791149660.171151
+}

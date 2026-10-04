@@ -1,0 +1,1 @@
+exploit-cache up on cybergym-internal as exploit-cache.internal:8080 (logs -> /scratch/marimeireles/exploitgym_swarm/artifactory_logs/events.jsonl; seed=/nas/ucb/marimeireles/spy/scripts/exploitgym/board_seed.json)

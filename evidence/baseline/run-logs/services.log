@@ -1,0 +1,66 @@
+LLM proxy config: /nas/ucb/marimeireles/spy/scripts/exploitgym/litellm_vllm.yaml (route 'gemma4-local' -> http://127.0.0.1:8001/v1)
+OpenRouter key loaded (hosted routes enabled)
+secrets written to /scratch/marimeireles/exploitgym/da_secrets.env
+Export these in the shell you run the task from:
+  export CYBERGYM_SERVER_SALT=cg-f7e42804ba17d7525ab177ca0e4313f8
+  export CYBERGYM_SERVER_FLAG_SEED=sf-42bb32f5f58c510c3f9e161edf1cb83a
+  export CYBERGYM_SERVER_API_KEY=cybergym-72dcc5d7623f1e8771d55de7156d9fbf
+  export CYBERGYM_ADMIN_KEY=admin-<REDACTED>
+  export DOCKER_BRIDGE_IP=0.0.0.0
+Local air-gapped route (default): NO provider key needed — the proxy forwards to the local vLLM.
+  (For a HOSTED model instead: unset CYBERGYM_LLM_CONFIG and export your provider key, e.g. ANTHROPIC_API_KEY.)
+  Make sure the Gemma vLLM is serving on 127.0.0.1:8001 before running the task.
+Checking 1 task(s) from /nas/ucb/marimeireles/spy/scripts/exploitgym/task_ids.txt
+
+[1/6] ASLR disabled
+  [33mWARN[0m kernel.randomize_va_space=2; no root to disable ASLR (rootless host). Proceeding with ASLR ON — exploitation is harder / less deterministic, but this is a reliability knob, not containment.
+[2/6] Coredump pattern
+  [33mWARN[0m core_pattern is a pipe (|/usr/share/apport/apport -p%p -s%s -c%c -d%d -P%P -u%u -g%g -F%F -- %E); coredumps won't be captured. Recommend: sudo sysctl -w kernel.core_pattern=core.%e.%p.%t
+[3/6] Docker
+  [32mOK[0m   docker daemon reachable
+  [33mWARN[0m could not derive DOCKER_BRIDGE_IP from docker0 — pass --bridge-ip manually
+  [32mOK[0m   using --bridge-ip 0.0.0.0
+[4/6] KVM acceleration
+  [32mOK[0m   no kernel tasks selected; KVM not required
+[5/6] Firewall proxy image
+  [32mOK[0m   ubuntu/squid:latest present
+[6/6] Target images
+  [33mWARN[0m 1 task(s) missing images (will be pulled lazily)
+       user:cybergym/arvo_10841: cybergym/arvo:10841-vul.exp.none-nogit
+       To pre-pull: uv run scripts/setup/pull_images.py <tasks> --user-modes exp.none --v8-variants nodefense
+
+[32mPre-run check PASSED.[0m
+
+Service status:
+  [32mOK[0m   firewall: not running — will start
+  [32mOK[0m   controller: not running — will start
+  [32mOK[0m   llm_proxy: not running — will start
+
+→ Firewall (ip=0.0.0.0, which=both)
+  [32mOK[0m   firewall running (run proxy: cybergym-internal + cybergym-proxy; install proxy: cybergym-install + cybergym-install-proxy)
+
+→ Controller (host=0.0.0.0, port=8666)
+  [32mOK[0m   controller running (pid=2592434, log=logs/pre_run/controller.log)
+
+→ LLM proxy (host=0.0.0.0, port=4000)
+  LLM proxy config: /nas/ucb/marimeireles/spy/scripts/exploitgym/litellm_vllm.yaml
+  [32mOK[0m   llm_proxy running (pid=2592488, log=logs/pre_run/llm_proxy.log)
+
+============================================================
+Services ready. Relevant env for the agent runner:
+export DOCKER_BRIDGE_IP=0.0.0.0
+export CYBERGYM_SERVER_SALT=cg-f7e42804ba17d7525ab177ca0e4313f8  # from environment
+export CYBERGYM_SERVER_FLAG_SEED=sf-42bb32f5f58c510c3f9e161edf1cb83a  # from environment
+export CYBERGYM_SERVER_API_KEY=cybergym-72dcc5d7623f1e8771d55de7156d9fbf  # from environment
+export CYBERGYM_ADMIN_KEY=admin-<REDACTED>
+  --proxy-url http://127.0.0.1:4000 \
+  --proxy-admin-key $CYBERGYM_ADMIN_KEY \
+  --controller-url http://127.0.0.1:8666 \
+  --use-firewall \
+
+Background PIDs: controller=2592434 llm_proxy=2592488
+Logs: logs/pre_run/
+Stop with: kill <pid>  (firewall: uv run -m cybergym.firewall stop --which both)
+============================================================
+relay up: gw.internal:4000 -> <HOST_IP>:4000 (dual-homed internal+egress; rootless host-reach via LAN IP)
+services started. Verify isolation: /nas/ucb/marimeireles/spy/scripts/exploitgym/preflight_isolation.sh
